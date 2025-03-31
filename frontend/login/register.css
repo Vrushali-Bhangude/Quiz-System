@@ -1,0 +1,131 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* General body styling */
+body {
+    background-color: rgb(7, 3, 44); /* Base color */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px; /* Adjust the size of the grid pattern */
+    overflow-y: scroll;
+    scrollbar-width: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+}
+
+/* Form box styling */
+.form-box {
+    background: rgba(255, 255, 255, 0.541);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Input group styling */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input fields styling */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #8a2be2;
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+}
+
+/* Select field styling */
+.input-field[type="date"],
+.input-field[type="select"] {
+    appearance: none;
+    background-color: white;
+}
+
+/* Checkbox styling */
+.check-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.check-box input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Button styling */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #ff7eb9, #8a2be2);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.submit-btn a{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(45deg, #8a2be2, #ff7eb9);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .form-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .form-box h2 {
+        font-size: 20px;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}

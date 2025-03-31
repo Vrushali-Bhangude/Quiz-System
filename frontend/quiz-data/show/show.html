@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assests/favicon.ico">
+
+    <title>Quiz Session</title>
+    <link rel="stylesheet" href="show.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="quizTitle"></h1>
+            <div class="quiz-info">
+                <span id="timeRemaining">Time: 0:40</span>
+                <span id="userNickname"></span>
+                <span id="questionCounter"></span>
+            </div>
+        </header>
+        
+        <div id="questionsContainer"></div>
+        
+        <div class="navigation">
+            <button id="prevQuestion">Previous</button>
+            <button id="nextQuestion">Next</button>
+            <button id="submitQuiz" class="hidden">Submit Quiz</button>
+        </div>
+    </div>
+    <script src="show.js"></script>
+</body>
+</html>

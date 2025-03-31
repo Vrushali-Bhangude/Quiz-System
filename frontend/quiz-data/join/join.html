@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assests/favicon.ico">
+    <title>Quiz App - Join Quiz</title>
+    <link rel="stylesheet" href="join.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Entry Section -->
+        <div class="quiz-entry" id="quizEntry">
+            <h1>Enter Quiz Code</h1>
+            <input type="text" id="quizCode" placeholder="Enter 6-digit code" maxlength="6">
+            <input type="text" id="nickname" placeholder="Your nickname" maxlength="20">
+            <button id="startQuiz">Start Quiz</button>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+
+        <!-- Quiz Container (initially hidden) -->
+        <div class="quiz-container hidden" id="quizContainer">
+            <div class="quiz-header">
+                <h1 id="quizTitle"></h1>
+                <p id="quizDescription"></p>
+                <div id="timeRemaining" class="hidden"></div>
+            </div>
+            
+            <!-- Questions will be inserted here by JavaScript -->
+            <div id="questionsContainer" class="questions-container"></div>
+            
+            <!-- Submit Button -->
+            <button id="submitQuiz" class="hidden">Submit Quiz</button>
+            
+            <!-- Results Display -->
+            <div id="results" class="results hidden"></div>
+        </div>
+    </div>
+
+    <script src="join.js"></script>
+</body>
+</html>

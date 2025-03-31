@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../assests/favicon.ico">
+
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+    <div class="form-box">
+        <h2>Register</h2>
+        <div id="error-message" class="error-message" style="color: red; display: none;"></div>
+
+        <!-- Registration Form -->
+        <form id="register" class="input-group" onsubmit="handleRegister(event)">
+            <input type="text" id="full-name" class="input-field" placeholder="Full Name" required>
+            <input type="email" id="email" class="input-field" placeholder="Email Address" required>
+            <input type="text" id="mobile-number" class="input-field" placeholder="Mobile Number" required>
+            <input type="text" id="address" class="input-field" placeholder="Address" required>
+            <select id="gender" class="input-field" required>
+                <option value="" disabled selected>Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="date" id="dob" class="input-field" placeholder="Date of Birth" required>
+            <input type="password" id="password" class="input-field" placeholder="Create Password" required>
+            <input type="password" id="confirm-password" class="input-field" placeholder="Confirm Password" required>
+            <div class="check-box">
+                <input type="checkbox" id="chkAgree" required> I agree to the Terms & Conditions
+            </div>
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+    </div>
+
+    <script>
+        // Handle registration form submission
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const full_name = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const mobile_number = document.getElementById('mobile-number').value;
+            const address = document.getElementById('address').value;
+            const gender = document.getElementById('gender').value;
+            const date_of_birth = document.getElementById('dob').value;
+            const password = document.getElementById('password').value;
+            const confirm_password = document.getElementById('confirm-password').value;
+            const agreeTerms = document.getElementById('chkAgree').checked;
+            
+            // Validate password match
+            if (password !== confirm_password) {
+                showError("Passwords do not match!");
+                return;
+            }
+            
+            // Validate password length
+            if (password.length < 6) {
+                showError("Password must be at least 6 characters long!");
+                return;
+            }
+            
+            // Validate terms agreement
+            if (!agreeTerms) {
+                showError("You must agree to the Terms & Conditions!");
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        full_name, 
+                        email, 
+                        mobile_number, 
+                        address, 
+                        gender, 
+                        date_of_birth, 
+                        password,  // Sending plain text password
+                        confirm_password  // Sending plain text confirm password
+                    }),
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Registration successful - redirect to home page
+                    window.location.href = '/frontend/home-detail/home.html';
+                } else {
+                    // Show error message from server
+                    showError(result.message || "Registration failed. Please try again.");
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showError("An error occurred during registration. Please try again.");
+            }
+        }
+        
+        function showError(message) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

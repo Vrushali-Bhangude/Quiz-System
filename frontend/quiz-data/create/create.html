@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assests/favicon.ico">
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="create.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="part1">
+                <!-- <img src="logo.png" alt="Logo"> -->
+            </div>
+            <div class="part2">
+                <ul>
+                    <li><a href="../../home-detail/home.html" id="homeTab"></a></li>
+                    <li><a href="../../home-detail/home.html">Home</a></li>
+                    <li><a href="#" id="addQuizTab">Add Quiz</a></li>
+                    <li class="dropdown">
+                        <a href="#" id="addedQuizzesTab">Added Quizzes</a>
+                        <ul id="quizDropdown" class="dropdown-content"></ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span class="hamburger-icon">&#9776;</span>
+                <span class="cross-icon hidden">&#10005;</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="create-quiz-container">
+        <!-- Home Content -->
+        <div id="homeContent">
+            <h1>Welcome to Quiz App</h1>
+            <p>Create and manage quizzes easily!</p>
+
+            <!-- Features Section -->
+            <div class="features">
+                <h2>Why Choose Quiz App?</h2>
+                <ul>
+                    <li>📝 Create quizzes with unlimited questions and options.</li>
+                    <li>📂 Save and manage all your quizzes in one place.</li>
+                    <li>🚀 Easy-to-use interface for seamless quiz creation.</li>
+                    <li>📊 Track and review your quizzes anytime.</li>
+                </ul>
+            </div>
+
+            <!-- Call-to-Action Buttons -->
+            <div class="cta-buttons">
+                <button id="createQuizCta" class="cta-btn">Create a New Quiz</button>
+                <button id="exploreQuizzesCta" class="cta-btn">Explore Added Quizzes</button>
+            </div>
+
+            <!-- Motivational Quote -->
+            <div class="quote">
+                <blockquote>
+                    "Learning is a treasure that will follow its owner everywhere."
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- Add Quiz Content -->
+        <div id="addQuizContent" class="hidden">
+            <h1>Create a New Quiz</h1>
+            <form id="createQuizForm">
+                <input type="hidden" id="quizId" name="quizId">
+
+                <!-- Quiz Title -->
+                <div class="form-group">
+                    <label for="quizTitle">Quiz Title</label>
+                    <input type="text" id="quizTitle" name="quizTitle" placeholder="Enter quiz title" required>
+                </div>
+
+                <!-- Quiz Description -->
+                <div class="form-group">
+                    <label for="quizDescription">Quiz Description</label>
+                    <textarea id="quizDescription" name="quizDescription" placeholder="Enter quiz description" rows="4"
+                        required></textarea>
+                </div>
+
+                <!-- Add Questions -->
+                <div class="form-group">
+                    <label>Add Questions</label>
+                    <div id="questionsContainer">
+                        <!-- Questions will be dynamically added here -->
+                    </div>
+                    <button type="button" id="addQuestion">Add Question</button>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Create Quiz</button>
+            </form>
+
+            <!-- Random Quiz Options -->
+            <div class="random-quiz-options">
+                <h3>Quick Quiz Templates</h3>
+                <div class="options">
+                    <button class="random-quiz-btn" data-quiz="c">C Quiz</button>
+                    <button class="random-quiz-btn" data-quiz="cpp">C++ Quiz</button>
+                    <button class="random-quiz-btn" data-quiz="java">Java Quiz</button>
+                    <button class="random-quiz-btn" data-quiz="html">HTML Quiz</button>
+                    <button class="random-quiz-btn" data-quiz="css">CSS Quiz</button>
+                    <button class="random-quiz-btn" data-quiz="js">JavaScript Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Added Quizzes Content -->
+        <div id="addedQuizzesContent" class="hidden">
+            <h1>Added Quizzes</h1>
+            <div id="quizzesList"></div>
+        </div>
+
+        <!-- Quiz Content Section -->
+        <div id="quizContent" class="hidden">
+            <h1 id="quizContentTitle"></h1>
+            <p id="quizContentDescription"></p>
+            <div id="quizQuestionsContainer"></div>
+            <button id="backToQuizzes">Back to Quizzes</button>
+        </div>
+    </main>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const hamburger = document.getElementById("hamburger");
+    const navList = document.getElementById("nav-list");
+
+    hamburger.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        hamburger.innerHTML = navList.classList.contains("active") ? "&#10006;" : "&#9776;";
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!navList.contains(event.target) && !hamburger.contains(event.target)) {
+            navList.classList.remove("active");
+            hamburger.innerHTML = "&#9776;";
+        }
+    });
+});
+    </script>
+    <script src="create.js"></script>
+</body>
+
+</html>

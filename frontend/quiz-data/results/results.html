@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../assests/favicon.ico">
+
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="result.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" data-tab="summary">Summary</button>
+            <button class="tab" data-tab="answers">Your Answers</button>
+            <button class="tab" data-tab="leaderboard">Leaderboard</button>
+        </div>
+
+        <div id="summary" class="tab-content active">
+            <h1>Quiz Results</h1>
+            <div class="result-card">
+                <h2 id="quizTitle"></h2>
+                <div class="score-display">
+                    <span id="userScore"></span>/<span id="totalQuestions"></span>
+                    <div class="score-percent" id="scorePercent"></div>
+                </div>
+                <div class="result-details">
+                    <p><strong>Time Taken:</strong> <span id="timeTaken"></span></p>
+                    <p><strong>Your Rank:</strong> <span id="userRank"></span></p>
+                </div>
+                <button id="retakeQuiz">Retake Quiz</button>
+            </div>
+        </div>
+
+        <div id="answers" class="tab-content">
+            <h2>Your Answers</h2>
+            <div id="answersContainer" class="answers-container"></div>
+        </div>
+
+        <div id="leaderboard" class="tab-content">
+            <h2>Leaderboard</h2>
+            <div class="leaderboard-controls">
+                <select id="leaderboardFilter">
+                    <option value="all">All Players</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                </select>
+            </div>
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="results.js"></script>
+</body>
+</html>

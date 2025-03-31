@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .quiz-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .quiz-title {
+      font-size: 20px;
+      color: #333;
+      margin: 0 0 10px 0;
+    }
+    .quiz-code {
+      color: #7f8c8d;
+      font-size: 14px;
+      display: inline-block;
+      padding: 3px 8px;
+      background: #ecf0f1;
+      border-radius: 4px;
+    }
+    .loading {
+      color: #3498db;
+    }
+    .error {
+      color: #e74c3c;
+      padding: 10px;
+      background: #fadbd8;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Quizzes</h1>
+  <div id="quiz-list">
+    <p class="loading">Loading quizzes...</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Correct backend URL - change if your server runs on a different port
+      const API_URL = 'http://localhost:5000/api/quizzes';
+      
+      const quizList = document.getElementById('quiz-list');
+      
+      fetch(API_URL)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(quizzes => {
+          quizList.innerHTML = ''; // Clear loading message
+          
+          if (quizzes.length === 0) {
+            quizList.innerHTML = '<p>No quizzes available. Create one first!</p>';
+            return;
+          }
+          
+          quizzes.forEach(quiz => {
+            const quizCard = document.createElement('div');
+            quizCard.className = 'quiz-card';
+            quizCard.innerHTML = `
+              <h3 class="quiz-title">${quiz.title}</h3>
+              <p>${quiz.description}</p>
+              <span class="quiz-code">Code: ${quiz.quizCode}</span>
+            `;
+            quizList.appendChild(quizCard);
+          });
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+          quizList.innerHTML = `
+            <div class="error">
+              <p>Failed to load quizzes.</p>
+              <p><small>Error: ${error.message}</small></p>
+              <p>Make sure:
+                <ul>
+                  <li>Your backend server is running</li>
+                  <li>You're using the correct API URL</li>
+                  <li>There are no CORS issues</li>
+                </ul>
+              </p>
+            </div>
+          `;
+        });
+    });
+  </script>
+</body>
+</html>

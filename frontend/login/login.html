@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../assests/favicon.ico">
+
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="form-box">
+        <h2>Login</h2>
+        <div id="login-error" style="color: red; margin-bottom: 15px; display: none;"></div>
+
+        <form id="login" onsubmit="handleLogin(event)">
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+
+        <script>
+            function showError(message) {
+                const errorElement = document.getElementById('login-error');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError() {
+                document.getElementById('login-error').style.display = 'none';
+            }
+
+            async function handleLogin(event) {
+                event.preventDefault();
+                hideError();
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                console.log('Sending login request with:', { email, password });
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        console.log('Login successful:', result);
+                        // Redirect to home page after successful login
+                        window.location.href = '../home-detail/home.html';
+                    } else {
+                        console.error('Login failed:', result);
+                        showError(result.message || 'Invalid email or password');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError('An error occurred. Please try again.');
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>
