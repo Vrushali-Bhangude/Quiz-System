@@ -3,12 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Welcome to Quiz! Create your own quizzes or join existing ones to test your knowledge.">
+    <meta name="keywords" content="quiz, online quiz, create quiz, join quiz, trivia, knowledge test">
+    <meta name="author" content="Vrushali | Priyanka">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Quiz! - Create or Join Quizzes">
+    <meta property="og:description" content="Welcome to Quiz! Create your own quizzes or join existing ones to test your knowledge.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/x-icon" href="./frontend/assests/favicon.ico">
+
+    <title>Quiz!</title>
+    <link rel="stylesheet" href="./frontend/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>EPL</h1>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content" id="content">
+        <!-- Create Your Own Quiz Button -->
+        <div class="create-quiz-button">
+            <!-- <a href="./home-detail/home.html">Create Your Own Quiz</a> -->
+            <a href="./frontend/login/register.html">SignUp</a>
+            <a href="./frontend/login/login.html">LogIn</a>
+
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to <span>Quiz!</span></h1>
+            <p>Test your knowledge, challenge your friends, and create your own quizzes!</p>
+        </section>
+
+        <!-- Join Quiz Container -->
+        <div class="join-container">
+            <!-- <h1>Join a Quiz</h1>
+            <input type="text" placeholder="Enter Quiz Code">
+            <input type="text" placeholder="Enter Your Nickname"> -->
+
+            <button id="joinQuizBtn" onclick="window.location.href='./frontend/quiz-data/join/join.html'">Join Quiz</button>        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-card">
+                <h3>Create Quizzes</h3>
+                <p>Design your own quizzes with custom questions and answers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Join Quizzes</h3>
+                <p>Enter a quiz code and start playing instantly.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Compete Globally</h3>
+                <p>Compete with players from around the world and climb the leaderboard.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Show loading screen for 1 second
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }, 2000);
+    </script>
 </body>
 </html>
-
-
-
