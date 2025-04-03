@@ -8,20 +8,23 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Improved CORS Configuration (Single Declaration)
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Use env variable
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add needed methods
+  credentials: true,
+  optionsSuccessStatus: 200 // Legacy browsers
+};
+app.use(cors(corsOptions));
+
 // Middleware
-app.use(cors({
-  origin: 'http://127.0.0.1:5500' // Update with your frontend URL
-}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Database Connection
+// Modern MongoDB Connection (Remove deprecated options)
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('✅ MongoDB connected successfully');
   } catch (err) {
     console.error('❌ MongoDB connection error:', err);
@@ -32,31 +35,38 @@ const connectDB = async () => {
 // Routes
 app.use('/api/auth', authRoutes);
 
-// Health Check
+// Enhanced Health Check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ 
     status: 'healthy',
-    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    environment: process.env.NODE_ENV || 'development',
+    timestamp: new Date().toISOString()
   });
 });
 
-app.use(cors({
-  origin: 'http://127.0.0.1:5500', // Or your frontend URL
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
-
 // Start Server
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`🔗 API: http://localhost:${PORT}/api`);
+    console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+
+  // Graceful Shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received. Shutting down gracefully...');
+    server.close(() => {
+      mongoose.connection.close(false, () => {
+        console.log('MongoDB connection closed');
+        process.exit(0);
+      });
+    });
   });
 });
 
 // Error Handling
-process.on('SIGINT', async () => {
-  await mongoose.connection.close();
-  console.log('MongoDB connection closed');
-  process.exit(0);
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+  process.exit(1);
 });
